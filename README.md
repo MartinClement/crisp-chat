@@ -15,7 +15,7 @@
 | Name        | Doc                                     |
 | :---------- | :-------------------------------------- |
 | Vue3        | [vuejs.org](https://vuejs.org/)         |
-| SocketIO    | [Socket.IO](https://socket.io/en/)      |
+| SocketIO    | [Socket.IO](https://socket.io)          |
 | Tailwindcss | [tailwindcss](https://tailwindcss.com/) |
 
 ## Setup and Run
