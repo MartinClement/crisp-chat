@@ -1,3 +1,31 @@
+# Crisp Technical Test
+
+## Create a web chat application
+
+### Features
+
+- [ ] User join or create a chat room by entering a name.
+- [ ] User see the list of users in the chat room.
+- [ ] User can read the last 10 messages.
+- [ ] User can read new messages.
+- [ ] User can write and send new messages.
+
+### Technologies
+
+| Name        | Doc                                     |
+| :---------- | :-------------------------------------- |
+| Vue3        | [vuejs.org](https://vuejs.org/)         |
+| SocketIO    | [Socket.IO](https://socket.io/en/)      |
+| Tailwindcss | [tailwindcss](https://tailwindcss.com/) |
+
+## Setup and Run
+
+```bash
+# clone this repository
+npm install
+npm run dev
+```
+
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
