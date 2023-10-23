@@ -1,8 +1,7 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <h1 className="text-3xl font-bold underline">
-      Tailwing in use here! And it works !
-    </h1>
+  <h1 class="text-3xl text-blue-600">
+    Tailwindcss in use here! And it works !
+  </h1>
 </template>
