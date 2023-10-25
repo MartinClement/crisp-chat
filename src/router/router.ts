@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { addAuthGuard } from "./guards/authGuard";
 
 const routes = [
   {
@@ -8,9 +9,9 @@ const routes = [
   },
   {
     path: "/",
-    meta: { requiresAuth: true },
     name: "lobby",
     component: () => import("../pages/lobby/LobbyPage.vue"),
+    meta: { requiresAuth: true },
   },
 ];
 
@@ -18,5 +19,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+addAuthGuard(router);
 
 export default router;
