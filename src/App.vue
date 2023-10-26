@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { onUnmounted } from "vue";
-import { socket } from "./socket";
-
-onUnmounted(() => {
-  socket.disconnect();
-});
+import AuthenticationBar from "./components/auth/AuthenticationBar.vue";
 </script>
 
 <template>
-  <router-view></router-view>
+  <AuthenticationBar />
+  <div class="p-4"><router-view></router-view></div>
 </template>
