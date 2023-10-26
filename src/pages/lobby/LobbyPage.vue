@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import LobbyForm from "./components/LobbyForm.vue";
-import ConnectionStatus from "../../components/connection/ConnectionStatus.vue";
+import SocketConnectionStatus from "../../components/connection/SocketConnectionStatus.vue";
 import { useLocalStorage } from "../../composable/localStorage";
 import { useRouter } from "vue-router";
 
@@ -20,7 +20,7 @@ const disconnect = () => {
 <template>
   <div class="max-w-form flex flex-col justify-center">
     <div class="flex flex-row justify-between p-4">
-      <ConnectionStatus></ConnectionStatus>
+      <SocketConnectionStatus></SocketConnectionStatus>
       <button type="button" @click="disconnect">Disconnect</button>
     </div>
     <div
