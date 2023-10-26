@@ -1,7 +1,24 @@
 <script setup lang="ts">
 import ChatRoomForm from "./components/ChatRoomForm.vue";
 import { useAuth0 } from "@auth0/auth0-vue";
-const { isAuthenticated } = useAuth0();
+import { toValue, watch } from "vue";
+import { socket } from "../../socket";
+
+const { isAuthenticated, user } = useAuth0();
+const handleSubmit = (roomName: string) => {
+  socket.emit("room:create", {
+    user: toValue(user),
+    roomName,
+    callback: ({ roomId }: { roomId: string }) => {
+      console.log(roomId);
+    },
+  });
+};
+watch(isAuthenticated, (newValue) => {
+  if (newValue) {
+    socket.connect();
+  }
+});
 </script>
 
 <template>
@@ -14,15 +31,15 @@ const { isAuthenticated } = useAuth0();
       <div class="m-auto h-[360px] w-[360px] bg-gray-200"></div>
       <div v-if="isAuthenticated" class="py-4">
         <h3 class="text-center font-bold">
-          Enter a room name and start chating with your friend !
+          Enter a room name and start chatting with your friend !
         </h3>
         <div class="m-auto max-w-[360px]">
-          <ChatRoomForm></ChatRoomForm>
+          <ChatRoomForm :on-submit="handleSubmit"></ChatRoomForm>
         </div>
       </div>
       <div v-else>
         <h3 class="text-center font-bold">
-          Login and start chating with your friends!
+          Log in and start chatting with your friends!
         </h3>
       </div>
     </div>
