@@ -17,13 +17,14 @@ watch(isAuthenticated, (newValue) => {
 
 const router = useRouter();
 const aknowledgeRoomCreate = ({ roomId }: { roomId: string }) => {
-  router.push({ name: "chatroom", params: { roomId }});
+  router.push({ name: "chatroom", params: { roomId } });
 };
 const handleSubmit = (roomName: string) => {
-  socket.emit("room:create", {
-    user: toValue(user),
-    roomName,
-  }, aknowledgeRoomCreate);
+  socket.emit(
+    "room:create",
+    { user: toValue(user) ?? {}, roomName },
+    aknowledgeRoomCreate,
+  );
 };
 </script>
 
