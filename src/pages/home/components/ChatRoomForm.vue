@@ -14,7 +14,6 @@ const props = withDefaults(defineProps<LoginFormProps>(), {
 
 const roomName = ref("");
 const handleSubmit = () => {
-  alert(roomName.value);
   props.onSubmit(roomName.value);
 };
 </script>

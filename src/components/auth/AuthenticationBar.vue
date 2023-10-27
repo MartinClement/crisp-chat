@@ -31,7 +31,6 @@ const handleLogout = () => {
           >
             Logout
           </button>
-          <pre>{{ user }}</pre>
         </div>
         <button
           v-else
