@@ -25,7 +25,7 @@ const handleLogout = () => {
           />
           <div>{{ user?.name }}</div>
           <button
-            class="flex flex-row gap-2 rounded-md bg-red-600 p-2 font-bold text-white"
+            class="flex flex-row gap-2 rounded-md bg-red-400 p-2 font-bold text-white"
             type="button"
             @click="handleLogout"
           >
