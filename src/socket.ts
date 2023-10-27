@@ -1,5 +1,10 @@
-import { io } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 import { reactive } from "vue";
+
+import type {
+  IClientToServerEvents,
+  IServerToClientEvents,
+} from "./types/global";
 
 export const socketState = reactive({
   connected: false,
@@ -7,9 +12,12 @@ export const socketState = reactive({
 
 const SOCKET_URL = "ws://localhost:1337";
 
-export const socket = io(SOCKET_URL, {
-  autoConnect: false,
-});
+export const socket: Socket<IServerToClientEvents, IClientToServerEvents> = io(
+  SOCKET_URL,
+  {
+    autoConnect: false,
+  },
+);
 
 socket.on("connect", () => {
   socketState.connected = true;
