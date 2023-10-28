@@ -43,8 +43,10 @@ socket.on('room:user_joined', ({ user }) => addUser(user));
       <UserList :users="users"></UserList>
       <div class="grid grid-rows-[1fr_120px] gap-2">
         <MessageList :messages="messages"></MessageList>
-        <input type="textarea" v-model="newMessage"/>
-        <BaseButton @click="sendMessage">Send</BaseButton>
+        <div class="pl-2 pt-2 grid grid-rows-[1fr_auto] gap-2">
+          <input type="textarea" v-model="newMessage"/>
+          <BaseButton @click="sendMessage">Send</BaseButton>
+        </div>
       </div>
     </div>
   </div>
