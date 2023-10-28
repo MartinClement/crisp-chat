@@ -1,30 +1,38 @@
 import type { User } from "@auth0/auth0-vue";
 
-export interface IUserMessage {
-  user: User;
-  message: string;
-  timestamp: Number;
+
+export interface IMessage {
+  user: User,
+  message: string,
+  timestamp: Number,
 }
 
 export interface IRoomCreatedCallbackPayload {
   roomId: string;
 }
 
+export interface IRoomMessagePayload {
+  status: 'error' | 'ok',
+}
+
+export interface IRoom {
+  id: string,
+  users: User[],
+  owner: string,
+  messages: IMessage[],
+}
+
 export interface IClientToServerEvents {
   "room:create": (
-    { user, roomName }: { user: User; roomName: string },
+    { user, roomId }: { user: User; roomId: string },
     callback: Function,
   ) => void;
-  "room:message": ({
-    roomId,
-    messageData,
-  }: {
-    roomId: string;
-    messageData: IUserMessage;
-  }) => void;
-  "room:join": ({ user, roomId }: { user: User; roomId: string }) => void;
+  'room:message': (data: { roomId: string, message: IMessage }, callback: (payload: IRoomMessagePayload) => any) => void;
+  'room:join': (data: { user: User, roomId: string }, callback: ({ room }: { room: IRoom }) => any) => void;
 }
 
 export interface IServerToClientEvents {
-  "room:message": (userMessage: IUserMessage) => void;
+  "room:message": (userMessage: IMessage) => void;
+  'room:user_joined': ({ user }: { user: User }) => void;
+  'error:message': ({ message }: { message: string }) => void;
 }
