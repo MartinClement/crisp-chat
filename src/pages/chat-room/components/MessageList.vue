@@ -1,18 +1,20 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import type { IMessage } from "../../../types/global";
 import UserMessage from "./UserMessage.vue";
+import { useAuth0 } from "@auth0/auth0-vue";
 
-const messages = computed(() => {
-  return Array(20).fill(() => ({
-    message: "This is a message just to test the look of the message list",
-    user: {
-      nickname: "MartinClement",
-      name: "Clément",
-      picture: "https://robohash.org/clement",
-    },
-    timestamp: new Date().getTime(),
-  }));
-});
+const { user } = useAuth0();
+
+interface IMessageListProps {
+  messages: IMessage[],
+}
+withDefaults(defineProps<IMessageListProps>(), {
+  messages: Array,
+})
+
+const isSelfMessage = (message: IMessage) => {
+  return user.value?.name === message.user.name;
+}
 </script>
 <template>
   <div
@@ -20,8 +22,8 @@ const messages = computed(() => {
   >
     <UserMessage
       v-for="msg in messages"
-      :message="msg()"
-      :selfMessage="Math.random() > 0.5"
+      :message="msg"
+      :selfMessage="isSelfMessage(msg)"
     ></UserMessage>
   </div>
 </template>

@@ -1,11 +1,37 @@
 <script lang="ts" setup>
-import { computed, toValue } from "vue";
-import { useAuth0 } from "@auth0/auth0-vue";
+import { toValue, ref } from "vue";
+import { User, useAuth0 } from "@auth0/auth0-vue";
+import { useRoomState } from "./composable/roomState";
 import UserList from "./components/UserList.vue";
 import MessageList from "./components/MessageList.vue";
+import { socket } from "../../socket";
+
+import { useRoute } from "vue-router";
+const { params: { roomId } } = useRoute();
 
 const { user } = useAuth0();
-const users = computed(() => Array(10).fill(toValue(user)));
+
+const { init, addMessage, addUser, users, messages } = useRoomState();
+
+socket.emit('room:join', { roomId: roomId as string, user: toValue(user) as User}, ({ room }) => {
+  init(room);
+});
+
+const newMessage = ref('');
+const sendMessage = () => {
+  const message = { user: toValue(user) as User, message: newMessage.value, timestamp: new Date().getTime() };
+  socket.emit('room:message', { roomId: roomId as string, message }, ({ status }) => {
+    if (status === 'ok') {
+      addMessage(message);
+    }
+  });
+}
+
+socket.on('room:message', (message) => {
+  addMessage(message);
+})
+
+socket.on('room:user_joined', ({ user }) => addUser(user));
 </script>
 
 <template>
@@ -15,8 +41,9 @@ const users = computed(() => Array(10).fill(toValue(user)));
     <div class="grid h-full grid-cols-[250px_1fr]">
       <UserList :users="users"></UserList>
       <div class="grid grid-rows-[1fr_120px] gap-2">
-        <MessageList></MessageList>
-        <input type="textarea" />
+        <MessageList :messages="messages"></MessageList>
+        <input type="textarea" v-model="newMessage"/>
+        <button type="button" class="border-2 border-black" @click="sendMessage">Send !</button>
       </div>
     </div>
   </div>
