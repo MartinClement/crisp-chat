@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { User } from "@auth0/auth0-vue";
 
-interface UserListProps {
+interface IUserListProps {
   users: User[];
 }
 
-const props = withDefaults(defineProps<UserListProps>(), { users: Array });
-console.log(props.users);
+withDefaults(defineProps<IUserListProps>(), { users: Array });
 </script>
 
 <template>

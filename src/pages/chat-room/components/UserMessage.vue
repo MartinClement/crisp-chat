@@ -1,12 +1,8 @@
 <script lang="ts" setup>
-import { User } from "@auth0/auth0-vue";
+import { IMessage } from "../../../types/global";
 
 interface IUserMessageProps {
-  message: {
-    user: User;
-    message: string;
-    timestamp: number;
-  };
+  message: IMessage;
   selfMessage: boolean;
 }
 

@@ -1,28 +1,20 @@
 <script setup lang="ts">
 import ChatRoomForm from "./components/ChatRoomForm.vue";
-import { useAuth0 } from "@auth0/auth0-vue";
+import { User, useAuth0 } from "@auth0/auth0-vue";
 import { useRouter } from "vue-router";
-import { toValue, watch } from "vue";
+import { toValue } from "vue";
 import { socket } from "../../socket";
 
 const { isAuthenticated, user } = useAuth0();
-watch(isAuthenticated, (newValue) => {
-  console.log(newValue);
-  if (newValue) {
-    socket.connect();
-  } else {
-    socket.disconnect();
-  }
-});
 
 const router = useRouter();
 const aknowledgeRoomCreate = ({ roomId }: { roomId: string }) => {
   router.push({ name: "chatroom", params: { roomId } });
 };
-const handleSubmit = (roomName: string) => {
+const handleSubmit = (roomId: string) => {
   socket.emit(
     "room:create",
-    { user: toValue(user) ?? {}, roomName },
+    { user: toValue(user) as User, roomId },
     aknowledgeRoomCreate,
   );
 };
