@@ -4,6 +4,7 @@ import { User, useAuth0 } from "@auth0/auth0-vue";
 import { useRoomState } from "./composable/roomState";
 import UserList from "./components/UserList.vue";
 import MessageList from "./components/MessageList.vue";
+import BaseButton from "../../components/button/BaseButton.vue";
 import { socket } from "../../socket";
 
 import { useRoute } from "vue-router";
@@ -43,7 +44,7 @@ socket.on('room:user_joined', ({ user }) => addUser(user));
       <div class="grid grid-rows-[1fr_120px] gap-2">
         <MessageList :messages="messages"></MessageList>
         <input type="textarea" v-model="newMessage"/>
-        <button type="button" class="border-2 border-black" @click="sendMessage">Send !</button>
+        <BaseButton @click="sendMessage">Send</BaseButton>
       </div>
     </div>
   </div>

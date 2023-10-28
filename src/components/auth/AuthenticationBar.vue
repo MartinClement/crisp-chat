@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import SocketConnectionStatus from "../socket/SocketConnectionStatus.vue";
+import BaseButton from "../button/BaseButton.vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 
 const { logout, loginWithRedirect, user, isAuthenticated } = useAuth0();
@@ -24,22 +25,13 @@ const handleLogout = () => {
             class="h-[41px] w-[41px] rounded-full"
           />
           <div>{{ user?.name }}</div>
-          <button
-            class="flex flex-row gap-2 rounded-md bg-red-400 p-2 font-bold text-white"
-            type="button"
-            @click="handleLogout"
-          >
+          <BaseButton @click="handleLogout" kind="red">
             Logout
-          </button>
+          </BaseButton>
         </div>
-        <button
-          v-else
-          class="flex flex-row justify-between gap-2 rounded-md bg-green-500 px-4 py-2 font-bold text-white"
-          type="button"
-          @click="handleLogin"
-        >
-          <span>Login</span>
-        </button>
+        <BaseButton v-else @click="handleLogin">
+          Login
+        </BaseButton>
       </div>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { ref } from "vue";
 import BaseInput from "../../../components/form/BaseInput.vue";
 import BaseLabel from "../../../components/form/BaseLabel.vue";
 import FormGroup from "../../../components/form/FormGroup.vue";
+import BaseButton from "../../../components/button/BaseButton.vue";
 
 interface LoginFormProps {
   onSubmit: (value: string) => any;
@@ -25,13 +26,9 @@ const handleSubmit = () => {
       <BaseInput name="room_input" v-model="roomName"></BaseInput>
     </FormGroup>
     <div>
-      <button
-        type="button"
-        class="w-full rounded-md bg-green-300 p-2"
-        @click="handleSubmit"
-      >
+      <BaseButton @click="handleSubmit">
         Go !
-      </button>
+      </BaseButton>
     </div>
   </form>
 </template>
