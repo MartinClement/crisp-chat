@@ -1,8 +1,12 @@
 import { ref, toRefs, reactive, toValue } from "vue";
 import { IMessage, IRoom, AppSocket } from "../../../types/global";
-import { User, useAuth0 } from "@auth0/auth0-vue";
+import { useAuth0 } from "@auth0/auth0-vue";
+import type { AppUser } from "../../../types/global";
 
-export const useRoomState = (socket: AppSocket) => {
+export const useRoomState = (
+  socket: AppSocket,
+  onKick: () => void = () => ({}),
+) => {
   const { user } = useAuth0();
 
   const isRoomReady = ref(false);
@@ -16,7 +20,7 @@ export const useRoomState = (socket: AppSocket) => {
   const joinRoom = (roomId: string) => {
     socket.emit(
       "room:join",
-      { user: toValue(user) as User, roomId },
+      { user: toValue(user) as AppUser, roomId },
       ({ room }) => {
         roomState.id = room.id;
         roomState.users = room.users;
@@ -31,8 +35,8 @@ export const useRoomState = (socket: AppSocket) => {
     roomState.messages = [...roomState.messages, message];
   };
 
-  const addUser = (user: User) => {
-    roomState.users = [...roomState.users, user];
+  const updateUser = (users: AppUser[]) => {
+    roomState.users = [...users];
   };
 
   const sendMessage = (message: IMessage) => {
@@ -47,18 +51,32 @@ export const useRoomState = (socket: AppSocket) => {
     );
   };
 
+  const kickUser = (user: AppUser) => {
+    socket.emit("room:user_kick", { user, roomId: roomState.id });
+  };
+
+  const clear = () => {
+    socket.off("room:message");
+    socket.off("room:users");
+    socket.off("room:kick");
+  };
+
   socket.on("room:message", (message) => {
     addMessage(message);
   });
 
-  socket.on("room:user_joined", ({ user }) => {
-    addUser(user);
+  socket.on("room:users", ({ users }) => {
+    updateUser(users);
   });
+
+  socket.on("room:kick", onKick);
 
   return {
     joinRoom,
     sendMessage,
     isRoomReady,
+    clear,
+    kickUser,
     ...toRefs(roomState),
   };
 };

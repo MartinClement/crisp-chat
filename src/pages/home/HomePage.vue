@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import ChatRoomForm from "./components/ChatRoomForm.vue";
-import { User, useAuth0 } from "@auth0/auth0-vue";
+import { useAuth0 } from "@auth0/auth0-vue";
 import { useRouter } from "vue-router";
 import { toValue } from "vue";
 import { socket } from "../../socket";
 import LoginButton from "../../components/button/LoginButton.vue";
+
+import type { AppUser } from "../../types/global";
 
 const { isAuthenticated, user } = useAuth0();
 
@@ -15,7 +17,7 @@ const aknowledgeRoomCreate = ({ roomId }: { roomId: string }) => {
 const handleSubmit = (roomId: string) => {
   socket.emit(
     "room:create",
-    { user: toValue(user) as User, roomId },
+    { user: toValue(user) as AppUser, roomId },
     aknowledgeRoomCreate,
   );
 };

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { User } from "@auth0/auth0-vue";
+import type { AppUser } from "../../../types/global";
 import CrossIcon from "../../../components/icons/CrossIcon.vue";
 
 interface IUserListProps {
-  users: User[];
+  users: AppUser[];
   isUserOwner?: boolean;
-  kickUser?: (user: User) => any;
+  kickUser?: (user: AppUser) => any;
 }
 
 withDefaults(defineProps<IUserListProps>(), {
@@ -29,8 +29,12 @@ withDefaults(defineProps<IUserListProps>(), {
         :src="user.picture"
         class="h-[31px] w-[31px] rounded-full"
       />
-      <div class="hidden md:block">{{ user.name }}</div>
-      <CrossIcon @click="() => kickUser(user)" />
+      <div
+        class="hidden max-w-[125px] overflow-x-hidden text-ellipsis md:block"
+      >
+        {{ user.name }}
+      </div>
+      <CrossIcon v-if="isUserOwner" @click="() => kickUser(user)" />
     </div>
   </div>
 </template>

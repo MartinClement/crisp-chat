@@ -1,30 +1,50 @@
 <script lang="ts" setup>
-import { toValue, ref } from "vue";
-import { User, useAuth0 } from "@auth0/auth0-vue";
+import { toValue, ref, computed, onBeforeUnmount } from "vue";
+import { useAuth0 } from "@auth0/auth0-vue";
 import { useRoomState } from "./composable/roomState";
 import UserList from "./components/UserList.vue";
 import MessageList from "./components/MessageList.vue";
 import BaseButton from "../../components/button/BaseButton.vue";
 import BaseTextarea from "../../components/form/BaseTextarea.vue";
 import { socket } from "../../socket";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+
+import type { AppUser } from "../../types/global";
+
+const { user } = useAuth0();
 
 const {
   params: { roomId },
 } = useRoute();
-const { user } = useAuth0();
-const { users, messages, joinRoom, sendMessage, isRoomReady } =
-  useRoomState(socket);
+const router = useRouter();
+const handleKick = () => {
+  router.push({ name: "home" });
+};
 
-joinRoom(roomId as string);
+const {
+  users,
+  messages,
+  joinRoom,
+  sendMessage,
+  owner,
+  isRoomReady,
+  clear,
+  kickUser,
+} = useRoomState(socket, handleKick);
+
+const isUserRoomOwner = computed(() => {
+  return user.value?.email === owner.value;
+});
+
 const newMessage = ref("");
+
 const handleMessage = () => {
   if (newMessage.value === "") {
     return;
   }
 
   sendMessage({
-    user: toValue(user) as User,
+    user: toValue(user) as AppUser,
     message: newMessage.value,
     timestamp: new Date().getTime(),
   });
@@ -38,9 +58,9 @@ const handleKeyDown = (ev: KeyboardEvent) => {
   }
 };
 
-const handleKickUser = (user: User) => {
-  console.log(user);
-};
+joinRoom(roomId as string);
+
+onBeforeUnmount(clear);
 </script>
 
 <template>
@@ -48,7 +68,11 @@ const handleKickUser = (user: User) => {
     class="xl:max-w-app h-full max-h-full w-full rounded-md bg-white p-4 shadow-lg shadow-blue-900 xl:mx-auto"
   >
     <div class="grid h-full grid-cols-[auto_1fr]">
-      <UserList :users="users" :kick-user="handleKickUser"></UserList>
+      <UserList
+        :users="users"
+        :kick-user="kickUser"
+        :is-user-owner="isUserRoomOwner"
+      ></UserList>
       <div class="grid grid-rows-[1fr_120px] gap-2">
         <MessageList :messages="messages"></MessageList>
         <div class="grid grid-rows-[1fr_auto] gap-2 pl-2 pt-2">
