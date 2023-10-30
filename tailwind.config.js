@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       maxWidth: {
-        form: "360px",
+        form: "420px",
+        app: "1024px",
+        message: "360px",
       },
     },
   },

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AuthenticationBar from "./components/auth/AuthenticationBar.vue";
+import ApplicationHeader from "./components/header/ApplicationHeader.vue";
 </script>
 
 <template>
-  <AuthenticationBar />
+  <ApplicationHeader />
   <div class="p-4"><router-view></router-view></div>
 </template>

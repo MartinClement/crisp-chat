@@ -4,6 +4,7 @@ import { User, useAuth0 } from "@auth0/auth0-vue";
 import { useRouter } from "vue-router";
 import { toValue } from "vue";
 import { socket } from "../../socket";
+import LoginButton from "../../components/button/LoginButton.vue";
 
 const { isAuthenticated, user } = useAuth0();
 
@@ -21,25 +22,21 @@ const handleSubmit = (roomId: string) => {
 </script>
 
 <template>
-  <div class="m-auto h-full w-full max-w-[960px]">
-    <div class="h-full rounded-md bg-white p-4 shadow-lg shadow-blue-900">
-      <h1 class="text-center text-4xl font-bold">CrispChat</h1>
-      <h2 class="mb-4 text-center text-2xl text-gray-800">
-        The easy to use chat application.
-      </h2>
-      <div class="m-auto h-[360px] w-[360px] bg-gray-200"></div>
+  <div class="xl:max-w-app h-full w-full xl:mx-auto">
+    <div
+      class="flex h-full items-center justify-center rounded-md bg-white p-4 shadow-lg shadow-blue-900"
+    >
       <div v-if="isAuthenticated" class="py-4">
-        <h3 class="text-center font-bold">
-          Enter a room name and start chatting with your friend !
-        </h3>
-        <div class="m-auto max-w-[360px]">
+        <div class="m-auto max-w-form">
           <ChatRoomForm :onSubmit="handleSubmit"></ChatRoomForm>
         </div>
       </div>
-      <div v-else>
-        <h3 class="text-center font-bold">
+      <div v-else class="flex flex-col gap-4">
+        <h2 class="text-center text-3xl">Welcome on CrispChat</h2>
+        <h3 class="text-center text-2xl">
           Log in and start chatting with your friends!
         </h3>
+        <LoginButton />
       </div>
     </div>
   </div>
