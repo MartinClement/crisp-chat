@@ -20,15 +20,17 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <form class="flex flex-col gap-2">
+  <form
+    class="flex flex-col gap-2 rounded-md border-2 border-blue-400 bg-white px-4 py-8"
+    @submit.prevent="handleSubmit"
+  >
+    <h2 class="text-2xl font-bold text-blue-400">Let's talk!</h2>
     <FormGroup>
       <BaseLabel target="room_input">Room Name</BaseLabel>
       <BaseInput name="room_input" v-model="roomName"></BaseInput>
     </FormGroup>
     <div>
-      <BaseButton @click="handleSubmit">
-        Go !
-      </BaseButton>
+      <BaseButton @click="handleSubmit">Go !</BaseButton>
     </div>
   </form>
 </template>

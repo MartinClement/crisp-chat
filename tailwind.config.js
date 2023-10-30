@@ -8,6 +8,9 @@ export default {
         app: "1024px",
         message: "360px",
       },
+      backgroundImage: {
+        "crisp-chat-screen": "url('./src/assets/crisp_chat_screen.png')",
+      },
     },
   },
   plugins: [],

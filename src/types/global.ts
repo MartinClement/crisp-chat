@@ -8,7 +8,7 @@ export type AppUser = User & {
 export interface IMessage {
   user: AppUser;
   message: string;
-  timestamp: Number;
+  timestamp: number;
 }
 
 export interface IRoomCreatedCallbackPayload {
