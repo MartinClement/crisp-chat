@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-interface BaseInputProps {
+interface IBaseInputProps {
   name: string;
   modelValue: string;
   type?: "text" | "password";
@@ -12,7 +12,6 @@ interface BaseInputProps {
 const nativeInput = ref<HTMLElement>();
 const isFocus = ref<boolean>(false);
 const forwardClick = () => {
-  console.log("click");
   nativeInput.value && nativeInput.value.focus();
 };
 const handleFocus = (event: FocusEvent) => {
@@ -25,7 +24,7 @@ const handleInput = (event: Event): void => {
   emit("update:modelValue", value);
 };
 
-withDefaults(defineProps<BaseInputProps>(), {
+withDefaults(defineProps<IBaseInputProps>(), {
   type: "text",
   modelValue: "",
   valid: false,
@@ -46,6 +45,7 @@ withDefaults(defineProps<BaseInputProps>(), {
       :id="name"
       :name="name"
       :type="type"
+      :value="modelValue"
       ref="nativeInput"
       @focusin="handleFocus"
       @focusout="handleFocus"
