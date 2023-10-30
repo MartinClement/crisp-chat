@@ -24,9 +24,9 @@ const handleSubmit = (roomId: string) => {
 </script>
 
 <template>
-  <div class="xl:max-w-app h-full w-full xl:mx-auto">
+  <div class="h-full w-full xl:mx-auto xl:max-w-app">
     <div
-      class="flex h-full items-center justify-center rounded-md bg-white p-4 shadow-lg shadow-blue-900"
+      class="flex h-full items-center justify-center rounded-md bg-gradient-to-r from-blue-500 to-cyan-500 p-4 shadow-lg shadow-blue-900"
     >
       <div v-if="isAuthenticated" class="py-4">
         <div class="m-auto max-w-form">
