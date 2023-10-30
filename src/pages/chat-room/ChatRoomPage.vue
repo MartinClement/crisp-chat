@@ -5,6 +5,7 @@ import { useRoomState } from "./composable/roomState";
 import UserList from "./components/UserList.vue";
 import MessageList from "./components/MessageList.vue";
 import BaseButton from "../../components/button/BaseButton.vue";
+import BaseTextarea from "../../components/form/BaseTextarea.vue";
 import { socket } from "../../socket";
 import { useRoute } from "vue-router";
 
@@ -18,11 +19,26 @@ const { users, messages, joinRoom, sendMessage, isRoomReady } =
 joinRoom(roomId as string);
 const newMessage = ref("");
 const handleMessage = () => {
+  console.log(newMessage.value, newMessage.value === "");
+  if (newMessage.value === "") {
+    console.log("UESSH");
+    return;
+  }
+
+  console.log("coucou");
   sendMessage({
     user: toValue(user) as User,
     message: newMessage.value,
     timestamp: new Date().getTime(),
   });
+
+  newMessage.value = "";
+};
+const handleKeyDown = (ev: KeyboardEvent) => {
+  if (ev.code === "Enter" && ev.shiftKey) {
+    ev.preventDefault();
+    handleMessage();
+  }
 };
 </script>
 
@@ -35,7 +51,11 @@ const handleMessage = () => {
       <div class="grid grid-rows-[1fr_120px] gap-2">
         <MessageList :messages="messages"></MessageList>
         <div class="grid grid-rows-[1fr_auto] gap-2 pl-2 pt-2">
-          <input type="textarea" v-model="newMessage" />
+          <BaseTextarea
+            v-model="newMessage"
+            name="message_textarea"
+            @keydown="handleKeyDown"
+          ></BaseTextarea>
           <BaseButton @click="handleMessage" :disabled="!isRoomReady">
             Send
           </BaseButton>

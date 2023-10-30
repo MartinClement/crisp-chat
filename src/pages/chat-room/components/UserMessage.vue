@@ -6,9 +6,7 @@ interface IUserMessageProps {
   selfMessage: boolean;
 }
 
-const props = defineProps<IUserMessageProps>();
-console.log(props.selfMessage);
-console;
+defineProps<IUserMessageProps>();
 </script>
 <template>
   <div

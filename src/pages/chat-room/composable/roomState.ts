@@ -28,7 +28,6 @@ export const useRoomState = (socket: AppSocket) => {
   };
 
   const addMessage = (message: IMessage) => {
-    console.log(message);
     roomState.messages = [...roomState.messages, message];
   };
 
@@ -37,7 +36,6 @@ export const useRoomState = (socket: AppSocket) => {
   };
 
   const sendMessage = (message: IMessage) => {
-    console.log(roomState.id);
     socket.emit(
       "room:message",
       { roomId: roomState.id, message },
