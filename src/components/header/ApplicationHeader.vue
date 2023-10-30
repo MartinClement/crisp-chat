@@ -26,7 +26,7 @@ const handleLogout = () => {
             :src="user?.picture"
             class="h-[41px] w-[41px] rounded-full"
           />
-          <div>{{ user?.name }}</div>
+          <div class="hidden md:block">{{ user?.name }}</div>
           <LogoutButton />
         </div>
       </div>
