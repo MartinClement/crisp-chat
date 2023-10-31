@@ -28,6 +28,7 @@ const showCrossIcon = (user: AppUser) => {
   <div
     class="flex h-full w-fit flex-col items-start gap-2 overflow-y-auto rounded-bl-md rounded-tl-md border-2 border-gray-200 p-2"
   >
+    <slot></slot>
     <div
       class="flex flex-row items-center gap-2 p-2 hover:bg-slate-200"
       v-for="user in users"
@@ -45,6 +46,5 @@ const showCrossIcon = (user: AppUser) => {
       </div>
       <CrossIcon v-if="showCrossIcon(user)" @click="() => kickUser(user)" />
     </div>
-    <slot></slot>
   </div>
 </template>

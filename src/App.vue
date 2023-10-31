@@ -6,5 +6,7 @@ import ErrorWrapper from "./components/error/ErrorWrapper.vue";
 <template>
   <ApplicationHeader />
   <ErrorWrapper />
-  <div class="p-4 pt-0"><router-view></router-view></div>
+  <div class="flex-1 overflow-y-hidden p-4 pt-0">
+    <router-view></router-view>
+  </div>
 </template>

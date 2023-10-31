@@ -72,18 +72,16 @@ onBeforeUnmount(clear);
   <div
     class="h-full max-h-full w-full rounded-md border-2 border-cyan-500 bg-white p-4 shadow-lg shadow-blue-900 xl:mx-auto xl:max-w-app"
   >
-    <div class="grid h-full grid-cols-[auto_1fr]">
+    <div class="grid h-full grid-cols-[auto_1fr] overflow-y-hidden">
       <UserList
         :users="users"
         :current-user="user"
         :kick-user="kickUser"
         :is-user-owner="isUserRoomOwner"
       >
-        <BaseButton kind="red" class="mt-auto" @click="handleExitRoom"
-          >Leave Room</BaseButton
-        >
+        <BaseButton kind="red" @click="handleExitRoom">Leave Room</BaseButton>
       </UserList>
-      <div class="grid-rows-msg-layout grid gap-2">
+      <div class="flex flex-col gap-2 overflow-y-hidden">
         <MessageList :messages="messages"></MessageList>
         <div class="grid grid-rows-[1fr_auto] gap-2 pl-2 pt-2">
           <BaseTextarea
