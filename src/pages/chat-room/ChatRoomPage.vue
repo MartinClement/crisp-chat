@@ -70,11 +70,12 @@ onBeforeUnmount(clear);
 
 <template>
   <div
-    class="h-full max-h-full w-full rounded-md bg-white p-4 shadow-lg shadow-blue-900 xl:mx-auto xl:max-w-app"
+    class="h-full max-h-full w-full rounded-md border-2 border-cyan-500 bg-white p-4 shadow-lg shadow-blue-900 xl:mx-auto xl:max-w-app"
   >
     <div class="grid h-full grid-cols-[auto_1fr]">
       <UserList
         :users="users"
+        :current-user="user"
         :kick-user="kickUser"
         :is-user-owner="isUserRoomOwner"
       >

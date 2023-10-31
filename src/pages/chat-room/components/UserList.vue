@@ -4,15 +4,24 @@ import CrossIcon from "../../../components/icons/CrossIcon.vue";
 
 interface IUserListProps {
   users: AppUser[];
+  currentUser?: AppUser;
   isUserOwner?: boolean;
   kickUser?: (user: AppUser) => any;
 }
 
-withDefaults(defineProps<IUserListProps>(), {
+const props = withDefaults(defineProps<IUserListProps>(), {
   users: Array,
   isUserOwner: false,
   kickUser: () => ({}),
 });
+
+const showCrossIcon = (user: AppUser) => {
+  if (props.isUserOwner) {
+    return props.currentUser && props.currentUser.email !== user.email;
+  }
+
+  return false;
+};
 </script>
 
 <template>
@@ -34,7 +43,7 @@ withDefaults(defineProps<IUserListProps>(), {
       >
         {{ user.name }}
       </div>
-      <CrossIcon v-if="isUserOwner" @click="() => kickUser(user)" />
+      <CrossIcon v-if="showCrossIcon(user)" @click="() => kickUser(user)" />
     </div>
     <slot></slot>
   </div>
