@@ -21,6 +21,11 @@ export function createRouter(app: App): Router {
         component: () => import("../pages/chat-room/ChatRoomPage.vue"),
         beforeEnter: createAuthGuard(app),
       },
+      {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        redirect: { name: "home" },
+      },
     ],
   });
 }
