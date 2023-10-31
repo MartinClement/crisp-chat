@@ -26,13 +26,12 @@ const handleSubmit = (roomId: string) => {
 <template>
   <div class="h-full w-full xl:mx-auto xl:max-w-app">
     <div
-      class="flex h-full items-center justify-center rounded-md border-2 border-cyan-500 bg-gradient-to-r from-blue-500 to-cyan-500 p-4 shadow-lg shadow-blue-900"
+      class="flex h-full items-center justify-center rounded-md border-2 border-cyan-500 bg-white bg-no-repeat p-4 shadow-lg shadow-blue-900 md:bg-crisp-chat-screen md:bg-contain md:bg-center"
     >
-      <div v-if="isAuthenticated" class="py-4">
-        <div class="m-auto max-w-form">
-          <ChatRoomForm :onSubmit="handleSubmit"></ChatRoomForm>
-        </div>
-      </div>
+      <ChatRoomForm
+        v-if="isAuthenticated"
+        :onSubmit="handleSubmit"
+      ></ChatRoomForm>
       <div v-else class="flex flex-col gap-4 rounded-md bg-white px-4 py-8">
         <h2 class="text-center text-2xl font-bold text-blue-500">
           Welcome on CrispChat
