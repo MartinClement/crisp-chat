@@ -10,7 +10,7 @@ interface IUserMessageProps {
 defineProps<IUserMessageProps>();
 
 const formatDate = (timestamp: number) => {
-  return dayjs(timestamp.toString()).format("DD/MM/YYYY HH:MM:ss");
+  return dayjs(timestamp).format("DD/MM/YYYY HH:MM:ss");
 };
 </script>
 <template>
