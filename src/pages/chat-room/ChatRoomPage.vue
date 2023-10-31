@@ -83,7 +83,7 @@ onBeforeUnmount(clear);
           >Leave Room</BaseButton
         >
       </UserList>
-      <div class="grid grid-rows-[1fr_120px] gap-2">
+      <div class="grid-rows-msg-layout grid gap-2">
         <MessageList :messages="messages"></MessageList>
         <div class="grid grid-rows-[1fr_auto] gap-2 pl-2 pt-2">
           <BaseTextarea
