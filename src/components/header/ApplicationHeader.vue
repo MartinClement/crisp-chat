@@ -11,7 +11,7 @@ const { user, isAuthenticated } = useAuth0();
     <div
       class="flex flex-row items-center justify-between gap-4 p-4 xl:m-auto xl:max-w-app"
     >
-      <div class="flex items-center gap-4">
+      <div class="flex items-baseline gap-4">
         <h1 class="text-3xl font-bold text-blue-400">CrispChat</h1>
         <SocketConnectionStatus></SocketConnectionStatus>
       </div>
