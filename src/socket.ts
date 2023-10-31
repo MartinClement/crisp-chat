@@ -10,9 +10,10 @@ export const socketState = reactive({
   connected: false,
 });
 
-const SOCKET_URL = "ws://localhost:1337";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
 
-export const socket: Socket<IServerToClientEvents, IClientToServerEvents> = io(SOCKET_URL);
+export const socket: Socket<IServerToClientEvents, IClientToServerEvents> =
+  io(SOCKET_URL);
 
 socket.on("connect", () => {
   socketState.connected = true;
@@ -22,6 +23,6 @@ socket.on("disconnect", () => {
   socketState.connected = false;
 });
 
-socket.on('error:message', (error) => {
+socket.on("error:message", (error) => {
   alert(error.message);
-})
+});
