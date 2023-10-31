@@ -22,7 +22,3 @@ socket.on("connect", () => {
 socket.on("disconnect", () => {
   socketState.connected = false;
 });
-
-socket.on("error:message", (error) => {
-  alert(error.message);
-});

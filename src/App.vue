@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import ApplicationHeader from "./components/header/ApplicationHeader.vue";
+import ErrorWrapper from "./components/error/ErrorWrapper.vue";
 </script>
 
 <template>
   <ApplicationHeader />
-  <div class="p-4"><router-view></router-view></div>
+  <ErrorWrapper />
+  <div class="p-4 pt-0"><router-view></router-view></div>
 </template>
