@@ -25,6 +25,7 @@ const {
   users,
   messages,
   joinRoom,
+  leaveRoom,
   sendMessage,
   owner,
   isRoomReady,
@@ -57,6 +58,10 @@ const handleKeyDown = (ev: KeyboardEvent) => {
     handleMessage();
   }
 };
+const handleExitRoom = () => {
+  leaveRoom();
+  router.push({ name: "home" });
+};
 
 joinRoom(roomId as string);
 
@@ -65,14 +70,18 @@ onBeforeUnmount(clear);
 
 <template>
   <div
-    class="xl:max-w-app h-full max-h-full w-full rounded-md bg-white p-4 shadow-lg shadow-blue-900 xl:mx-auto"
+    class="h-full max-h-full w-full rounded-md bg-white p-4 shadow-lg shadow-blue-900 xl:mx-auto xl:max-w-app"
   >
     <div class="grid h-full grid-cols-[auto_1fr]">
       <UserList
         :users="users"
         :kick-user="kickUser"
         :is-user-owner="isUserRoomOwner"
-      ></UserList>
+      >
+        <BaseButton kind="red" class="mt-auto" @click="handleExitRoom"
+          >Leave Room</BaseButton
+        >
+      </UserList>
       <div class="grid grid-rows-[1fr_120px] gap-2">
         <MessageList :messages="messages"></MessageList>
         <div class="grid grid-rows-[1fr_auto] gap-2 pl-2 pt-2">

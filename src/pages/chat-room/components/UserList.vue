@@ -36,5 +36,6 @@ withDefaults(defineProps<IUserListProps>(), {
       </div>
       <CrossIcon v-if="isUserOwner" @click="() => kickUser(user)" />
     </div>
+    <slot></slot>
   </div>
 </template>

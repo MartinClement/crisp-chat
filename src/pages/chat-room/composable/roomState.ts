@@ -31,6 +31,13 @@ export const useRoomState = (
     );
   };
 
+  const leaveRoom = () => {
+    socket.emit("room:leave", {
+      user: toValue(user) as AppUser,
+      roomId: roomState.id,
+    });
+  };
+
   const addMessage = (message: IMessage) => {
     roomState.messages = [...roomState.messages, message];
   };
@@ -73,6 +80,7 @@ export const useRoomState = (
 
   return {
     joinRoom,
+    leaveRoom,
     sendMessage,
     isRoomReady,
     clear,

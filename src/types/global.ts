@@ -39,6 +39,7 @@ export interface IClientToServerEvents {
     data: { user: AppUser; roomId: string },
     callback: ({ room }: { room: IRoom }) => any,
   ) => void;
+  "room:leave": (data: { user: AppUser; roomId: string }) => void;
   "room:user_kick": (data: { user: AppUser; roomId: string }) => void;
 }
 
