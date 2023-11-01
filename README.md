@@ -13,8 +13,9 @@
 ### Bonus Features
 
 - [] User can SignUp
-- [x] User can Login ( SSO according to auth0 )
+- [x] User can Login ( Github | Google SSO with auth0 )
 - [x] Admin of chat room can kick others users
+- [x] An hosted version of the app [CrispChat](https://crisp-chat.vercel.app/)
 
 ### Very nice to have
 
@@ -43,6 +44,8 @@ npm run dev
 ```
 
 ### How to use chat
+
+> Hosted App: https://crisp-chat.vercel.app/
 
 ## Create a room
 
