@@ -9,8 +9,7 @@ export default {
         message: "360px",
       },
       backgroundImage: {
-        "crisp-chat-screen":
-          "url('./src/assets/crisp_chat_screen_blurred.png')",
+        "crisp-chat-screen": "url('/crisp_chat_screen_blurred.png')",
       },
     },
   },
