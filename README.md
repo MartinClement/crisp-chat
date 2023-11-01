@@ -30,8 +30,13 @@
 
 ## Setup and Run
 
+### This project works with its dedicted server
+
+> You can find it here: [crisp-chat-srv](https://github.com/MartinClement/crisp-chat-srv).
+
+> Start the server before running the following commands
+
 ```bash
-# clone this repository
 npm install
 cp .env.sample .env
 npm run dev
