@@ -3,7 +3,7 @@ import ChatRoomForm from "./components/ChatRoomForm.vue";
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useRouter } from "vue-router";
 import { toValue } from "vue";
-import { socket } from "../../socket";
+import { socket, socketState } from "../../socket";
 import LoginButton from "../../components/button/LoginButton.vue";
 
 import type { AppUser } from "../../types/global";
@@ -31,6 +31,7 @@ const handleSubmit = (roomId: string) => {
       <ChatRoomForm
         v-if="isAuthenticated"
         :onSubmit="handleSubmit"
+        :canSubmit="socketState.connected"
       ></ChatRoomForm>
       <div v-else class="flex flex-col gap-4 rounded-md bg-white px-4 py-8">
         <h2 class="text-center text-2xl font-bold text-blue-500">

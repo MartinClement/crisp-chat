@@ -9,10 +9,12 @@ import { useFormState } from "../../../composable/formState";
 
 interface LoginFormProps {
   onSubmit: (value: string) => any;
+  canSubmit: boolean;
 }
 
 const props = withDefaults(defineProps<LoginFormProps>(), {
   onSubmit: () => ({}),
+  canSubmit: true,
 });
 
 const { roomName, set } = useFormState(
@@ -50,7 +52,7 @@ const handleSubmit = () => {
       <FieldErrorsWrapper :errors="roomName.errors" />
     </FormGroup>
     <div>
-      <BaseButton @click="handleSubmit">Go !</BaseButton>
+      <BaseButton @click="handleSubmit" :disabled="!canSubmit">Go !</BaseButton>
     </div>
   </form>
 </template>
