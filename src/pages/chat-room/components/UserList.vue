@@ -10,7 +10,7 @@ interface IUserListProps {
 }
 
 const props = withDefaults(defineProps<IUserListProps>(), {
-  users: Array,
+  users: () => [],
   isUserOwner: false,
   kickUser: () => ({}),
 });

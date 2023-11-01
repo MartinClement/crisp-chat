@@ -9,7 +9,7 @@ interface IMessageListProps {
   messages: IMessage[];
 }
 withDefaults(defineProps<IMessageListProps>(), {
-  messages: Array,
+  messages: () => [],
 });
 
 const isSelfMessage = (message: IMessage) => {
