@@ -6,6 +6,7 @@ import BaseButton from "../../../components/button/BaseButton.vue";
 import FieldErrorsWrapper from "../../../components/form/FieldErrorsWrapper.vue";
 
 import { useFormState } from "../../../composable/formState";
+import { computed } from "vue";
 
 interface LoginFormProps {
   onSubmit: (value: string) => any;
@@ -21,13 +22,17 @@ const { roomName, set } = useFormState(
   { roomName: "" },
   {
     roomName: {
-      alphaCharOnly: (value) => /^[a-zA-Z0-9]*$/.test(value),
-      minLength: (value) => value.length > 5,
-      maxLength: (value) => value.length < 25,
+      alphaCharOnly: (value) => /^[a-zA-Z0-9\-]*$/.test(value),
+      minLength: (value) => value.length > 2,
+      maxLength: (value) => value.length < 64,
     },
   },
 );
 const updateRoomName = set("roomName");
+
+const isButtonDisabled = computed(() => {
+  return !props.canSubmit || roomName.value.invalid;
+});
 
 const handleSubmit = () => {
   props.onSubmit(roomName.value.value);
@@ -52,7 +57,9 @@ const handleSubmit = () => {
       <FieldErrorsWrapper :errors="roomName.errors" />
     </FormGroup>
     <div>
-      <BaseButton @click="handleSubmit" :disabled="!canSubmit">Go !</BaseButton>
+      <BaseButton @click="handleSubmit" :disabled="isButtonDisabled"
+        >Go !</BaseButton
+      >
     </div>
   </form>
 </template>
