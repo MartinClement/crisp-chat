@@ -37,6 +37,7 @@ withDefaults(defineProps<IBaseInputProps>(), {
 <template>
   <div
     class="align-center flex w-full flex-row gap-2 rounded-md border-2 border-solid border-blue-400 px-4 py-1"
+    :class="`${valid && 'border-green-400'} ${invalid && 'border-red-400'}`"
     @click="forwardClick"
   >
     <slot name="before-input"></slot>
